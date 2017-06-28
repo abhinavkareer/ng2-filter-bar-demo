@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import {FilterConfig} from 'ng2-filter-bar';
+import {FilterConfig,NGFilterBarService} from 'ng2-filter-bar';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private filterBarApi:NGFilterBarService){}
+
   title = 'app works!';
-  cntr=4;
+  cntr=11;
+  allowExternalKeys=true;
   filtersConfig:Array<FilterConfig>=[
     {key:"1",name:"AppName"},
     {key:"2",name:"Init IP"},
@@ -28,4 +31,12 @@ export class AppComponent {
             console.log("filte updated:",event);
 
           }
+
+          addAFilter(){
+            this.cntr++;
+            this.filterBarApi.addFilter({key:this.cntr+"",name:"Manual Filter "+this.cntr,value:"Dummy Value"+this.cntr});
+
+          }
+
+
 }
